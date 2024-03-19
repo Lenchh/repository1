@@ -1,0 +1,58 @@
+#include <iostream>
+#include <Windows.h>
+#include <ctime>
+#include <string>
+constexpr auto RED = "\033[31m";
+constexpr auto BOLD = "\033[1m";
+constexpr auto RESET = "\033[0m";
+constexpr auto CYAN = "\033[36m";
+constexpr auto MAGENTA = "\033[35m";
+constexpr auto YELLOW = "\033[33m";
+constexpr auto GREEN = "\033[32m";
+using namespace std;
+int main() {
+    SetConsoleOutputCP(1251);
+    srand(time(NULL));
+    cout << BOLD<< YELLOW <<"\t\t\t\t\t\tДобро пожаловать в игру <<Угадай число>>\n"<<RESET;
+    char a;
+    bool d; 
+    do {
+        int i = 0;
+        int number = rand() % 100 + 1;
+        int yourNumber;
+        cout << BOLD << CYAN << "\nВведи число которое как ты думаешь загадал компьютер: \n" << RESET;
+        do {
+            cin >> yourNumber;
+            int s = number - yourNumber;
+            if (s > 0 && s <= 5) {
+                cout << BOLD << RED << "Почти!)\n" << RESET;
+                d = false;
+            }
+            else if (s == 0) {
+                cout << BOLD << GREEN << "Поздравляю! Ты угадал, загаданным числом было " << number << "\n";
+                d = true;
+                cout << GREEN << "Ты угадал с " << i + 1 << " попытки.\n" << RESET;
+            }
+            else if (s >= -5 && s <= -1) {
+                cout << BOLD << RED << "Сделай пару шагов назад ;)\n" << RESET;
+                d = false;
+            }
+            else if (s > 5 && s <= 10) {
+                cout << BOLD << RED << "Уже близко!\n" << RESET;
+                d = false;
+            }
+            else {
+                cout << BOLD << RED << "Попробуй ещё)\n" << RESET;
+                d = false;
+            }
+            if (!d) {
+                i++;
+            }
+        } while (!d);
+        cout << "Продолжим?(Y(y) or N(n))\n";
+        cin >> a;
+    } while (a=='Y' || a=='y');
+    system("pause");
+    return 0;
+
+}
